@@ -1,326 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CEM Hub — Institutional</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEM Hub — Elite Institutional</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#0a1f3d;
+  --accent:#c9a646;
+  --bg:#f7f9fc;
+  --text:#111827;
+  --muted:#6b7280;
+}
 
-  <style>
-    :root {
-      --primary: #0a1f3d; /* deep academic blue */
-      --secondary: #f4f6f9; /* light institutional gray */
-      --accent: #c9a646; /* subtle gold accent */
-      --text: #1a1a1a;
-      --muted: #6b7280;
-    }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:var(--text);background:white}
+section{padding:6rem 2rem}
+.container{max-width:1200px;margin:auto}
 
-    * { margin:0; padding:0; box-sizing:border-box; }
+header{
+ position:fixed;width:100%;top:0;z-index:1000;
+ background:rgba(255,255,255,0.9);
+ backdrop-filter:blur(10px);
+ display:flex;justify-content:space-between;align-items:center;
+ padding:1rem 2rem;border-bottom:1px solid #eee;
+}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      line-height: 1.6;
-      background: white;
-    }
+.logo{font-weight:700;color:var(--primary)}
+nav ul{display:flex;gap:2rem;list-style:none}
+nav a{text-decoration:none;color:var(--primary);font-size:0.9rem}
+nav a:hover{color:var(--accent)}
 
-    h1,h2,h3 { font-weight:600; }
+.hamburger{display:none;flex-direction:column;cursor:pointer}
+.hamburger span{width:24px;height:3px;background:var(--primary);margin:4px 0}
 
-    section { padding: 5rem 2rem; }
+.mobile-menu{
+ position:fixed;top:0;right:-100%;width:70%;height:100vh;
+ background:white;padding:2rem;transition:.4s;display:flex;flex-direction:column;gap:1.5rem
+}
+.mobile-menu.active{right:0}
 
-    .container {
-      max-width: 1100px;
-      margin: auto;
-    }
+.hero{
+ height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
+ color:white;
+ background:linear-gradient(rgba(10,31,61,0.8),rgba(10,31,61,0.85)), url('hero.jpg'); /* INSERT HERO IMAGE */
+ background-size:cover;background-position:center
+}
+.hero h1{font-size:3.5rem;margin-bottom:1rem}
+.hero p{color:#e5e7eb;max-width:600px;margin:auto}
 
-    /* HEADER */
-    header {
-      position: sticky;
-      top:0;
-      background:white;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:1rem 2rem;
-      border-bottom:1px solid #eee;
-      z-index:1000;
-    }
+.btn{
+ margin-top:2rem;padding:0.9rem 2rem;border:none;background:var(--accent);
+ color:white;cursor:pointer;font-size:0.9rem
+}
 
-    /* INSERT LOGO HERE */
+.trust{
+ background:var(--bg);padding:2rem;text-align:center;font-size:0.9rem;color:var(--muted)
+}
 
-    .logo {
-      font-weight:700;
-      color:var(--primary);
-    }
+.grid{display:grid;gap:2rem}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
 
-    nav ul {
-      display:flex;
-      list-style:none;
-      gap:2rem;
-    }
+.card{
+ background:white;padding:2rem;border-radius:8px;
+ box-shadow:0 10px 30px rgba(0,0,0,0.05);
+ transition:.3s
+}
+.card:hover{transform:translateY(-8px)}
 
-    nav a {
-      text-decoration:none;
-      color:var(--primary);
-      font-size:0.9rem;
-    }
+.program{
+ border-left:4px solid var(--accent);
+ padding:1.5rem;background:white;
+ box-shadow:0 6px 20px rgba(0,0,0,0.04)
+}
 
-    nav a:hover { color:var(--accent); }
+/* HALL IMAGE */
+.hall-image{
+ width:100%;border-radius:10px;margin-top:2rem;
+ box-shadow:0 10px 30px rgba(0,0,0,0.1)
+}
 
-    /* HAMBURGER */
-    .hamburger {
-      display:none;
-      flex-direction:column;
-      cursor:pointer;
-    }
+/* GALLERY */
+.gallery{
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem
+}
+.gallery img{
+ width:100%;border-radius:10px;object-fit:cover;
+ box-shadow:0 10px 30px rgba(0,0,0,0.1)
+}
 
-    .hamburger span {
-      width:24px; height:3px;
-      background:var(--primary);
-      margin:4px 0;
-    }
+/* RESOURCES */
+.resource-card{cursor:pointer}
+.article{
+ display:none;margin-top:1rem;color:var(--muted)
+}
+.read-more{color:var(--accent);cursor:pointer;font-size:0.9rem}
 
-    .mobile-menu {
-      position:fixed;
-      top:0;
-      right:-100%;
-      width:70%;
-      height:100vh;
-      background:white;
-      padding:2rem;
-      transition:0.3s;
-      display:flex;
-      flex-direction:column;
-      gap:1.5rem;
-    }
+/* CONTACT */
+form input,form textarea{
+ width:100%;padding:0.9rem;margin-bottom:1rem;border:1px solid #ddd
+}
 
-    .mobile-menu.active { right:0; }
+footer{
+ background:var(--primary);color:white;text-align:center;padding:2rem
+}
 
-    /* HERO */
-    .hero {
-      height:90vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      color:white;
-      background:linear-gradient(rgba(10,31,61,0.75), rgba(10,31,61,0.75)), url('hero.jpg'); /* INSERT HERO IMAGE */
-      background-size:cover;
-    }
+.fade{opacity:0;transform:translateY(40px);transition:1s}
+.fade.show{opacity:1;transform:translateY(0)}
 
-    .hero h1 {
-      font-size:3rem;
-      margin-bottom:1rem;
-    }
-
-    .hero p { color:#e5e7eb; }
-
-    .btn {
-      display:inline-block;
-      margin-top:1.5rem;
-      padding:0.8rem 1.8rem;
-      border:none;
-      background:var(--accent);
-      color:white;
-      font-size:0.9rem;
-      cursor:pointer;
-      letter-spacing:0.5px;
-    }
-
-    .btn.secondary {
-      background:transparent;
-      border:1px solid white;
-      margin-left:1rem;
-    }
-
-    /* ABOUT */
-    .grid {
-      display:grid;
-      gap:2rem;
-    }
-
-    .grid-3 { grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); }
-
-    .card {
-      background:var(--secondary);
-      padding:2rem;
-      border-radius:6px;
-      transition:0.3s;
-    }
-
-    .card:hover { transform:translateY(-6px); }
-
-    /* PROGRAMS */
-    .program-card {
-      border-left:4px solid var(--accent);
-      background:white;
-      padding:1.5rem;
-      box-shadow:0 4px 20px rgba(0,0,0,0.05);
-    }
-
-    /* HALL */
-    .hall-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(140px,1fr));
-      gap:1.5rem;
-    }
-
-    .student {
-      text-align:center;
-    }
-
-    .student img {
-      width:100px;
-      height:100px;
-      border-radius:50%;
-      object-fit:cover;
-      margin-bottom:0.5rem;
-      /* INSERT STUDENT IMAGE */
-    }
-
-    /* RESOURCES */
-    .resource {
-      border-bottom:1px solid #eee;
-      padding:1rem 0;
-    }
-
-    /* CONTACT */
-    form input, form textarea {
-      width:100%;
-      padding:0.8rem;
-      margin-bottom:1rem;
-      border:1px solid #ddd;
-    }
-
-    /* FOOTER */
-    footer {
-      background:var(--primary);
-      color:white;
-      text-align:center;
-      padding:2rem;
-    }
-
-    /* RESPONSIVE */
-    @media(max-width:768px){
-      nav ul { display:none; }
-      .hamburger { display:flex; }
-      .hero h1 { font-size:2rem; }
-    }
-  </style>
+@media(max-width:768px){
+ nav ul{display:none}
+ .hamburger{display:flex}
+ .hero h1{font-size:2.2rem}
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <div class="logo">CEM Hub</div>
-
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#programs">Programs</a></li>
-      <li><a href="#hall">Hall of Fame</a></li>
-      <li><a href="#resources">Resources</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
+ <div class="logo">CEM Hub</div>
+ <nav>
+  <ul>
+   <li><a href="#">Home</a></li>
+   <li><a href="#about">About</a></li>
+   <li><a href="#programs">Programs</a></li>
+   <li><a href="#hall">Hall of Fame</a></li>
+   <li><a href="#gallery">Gallery</a></li>
+   <li><a href="#resources">Resources</a></li>
+   <li><a href="#contact">Contact</a></li>
+  </ul>
+ </nav>
+ <div class="hamburger" onclick="toggleMenu()">
+  <span></span><span></span><span></span>
+ </div>
 </header>
 
 <div class="mobile-menu" id="menu">
-  <a href="#">Home</a>
-  <a href="#about">About</a>
-  <a href="#programs">Programs</a>
-  <a href="#hall">Hall of Fame</a>
-  <a href="#resources">Resources</a>
-  <a href="#contact">Contact</a>
+ <a href="#">Home</a>
+ <a href="#about">About</a>
+ <a href="#programs">Programs</a>
+ <a href="#hall">Hall of Fame</a>
+ <a href="#gallery">Gallery</a>
+ <a href="#resources">Resources</a>
+ <a href="#contact">Contact</a>
 </div>
 
 <section class="hero">
-  <div>
-    <h1>Developing Purpose-Driven Leaders</h1>
-    <p>We cultivate disciplined individuals equipped for intellectual and societal impact.</p>
-    <button class="btn">Join Us</button>
-    <button class="btn secondary">Explore Programs</button>
-  </div>
+ <div>
+  <h1>Developing Purpose-Driven Leaders</h1>
+  <p>We build disciplined individuals equipped with clarity, structure, and leadership capacity for global impact.</p>
+  <!-- WhatsApp CTA -->
+  <a href="https://wa.me/2348149169813" target="_blank">
+    <button class="btn">Join CEM Hub</button>
+  </a>
+ </div>
 </section>
 
-<section id="about">
-  <div class="container">
-    <h2>About CEM Hub</h2>
-    <p style="margin:1rem 0; color:var(--muted)">
-      CEM Hub is an academic and leadership development institution committed to mentorship, structure, and excellence.
-    </p>
+<div class="trust">
+ Trusted by students committed to excellence • Structured mentorship • Academic distinction
+</div>
 
-    <div class="grid grid-3">
-      <div class="card"><h3>Mentorship</h3><p>Guided development through structured support.</p></div>
-      <div class="card"><h3>Leadership</h3><p>Building disciplined and responsible leaders.</p></div>
-      <div class="card"><h3>Academic Excellence</h3><p>Promoting high-level intellectual performance.</p></div>
-    </div>
+<section id="about" class="fade">
+ <div class="container">
+  <h2>About CEM Hub</h2>
+  <p style="margin:1rem 0;color:var(--muted)">
+   CEM Hub is an academic and leadership institution focused on developing clarity, discipline, and execution in young individuals.
+  </p>
+
+  <div class="grid grid-3">
+   <div class="card"><h3>Mentorship</h3><p>Structured guidance and accountability systems.</p></div>
+   <div class="card"><h3>Leadership</h3><p>Formation of responsible, high-agency individuals.</p></div>
+   <div class="card"><h3>Academic Excellence</h3><p>High performance standards and intellectual rigor.</p></div>
   </div>
+ </div>
 </section>
 
-<section id="programs" style="background:var(--secondary)">
-  <div class="container">
-    <h2>Programs</h2>
-    <div class="grid grid-3" style="margin-top:2rem">
-      <div class="program-card"><h3>Leadership Program</h3></div>
-      <div class="program-card"><h3>Academic Mastery</h3></div>
-      <div class="program-card"><h3>Mentorship Track</h3></div>
-    </div>
+<section id="programs" class="fade">
+ <div class="container">
+  <h2>Programs</h2>
+  <div class="grid grid-3" style="margin-top:2rem">
+   <div class="program"><h3>Leadership Development</h3></div>
+   <div class="program"><h3>Academic Mastery</h3></div>
+   <div class="program"><h3>Mentorship Track</h3></div>
   </div>
+ </div>
 </section>
 
-<section id="hall">
-  <div class="container">
-    <h2>Hall of Fame</h2>
-    <div class="hall-grid" style="margin-top:2rem">
-      <div class="student">Student 1</div>
-      <div class="student">Student 2</div>
-      <div class="student">Student 3</div>
-      <div class="student">Student 4</div>
-      <div class="student">Student 5</div>
-      <div class="student">Student 6</div>
-      <div class="student">Student 7</div>
-      <div class="student">Student 8</div>
-    </div>
-  </div>
+<section id="hall" class="fade">
+ <div class="container">
+  <h2>Hall of Fame</h2>
+  <!-- INSERT GROUP IMAGE OF 8 STUDENTS HERE -->
+  <img src="hall-of-fame.jpg" alt="Hall of Fame" class="hall-image">
+ </div>
 </section>
 
-<section id="resources" style="background:var(--secondary)">
-  <div class="container">
-    <h2>Resources</h2>
-    <div class="resource">Article Title One</div>
-    <div class="resource">Article Title Two</div>
+<section id="gallery" class="fade" style="background:var(--bg)">
+ <div class="container">
+  <h2>Community</h2>
+  <div class="gallery" style="margin-top:2rem">
+   <!-- INSERT GROUP IMAGE 1 -->
+   <img src="group1.jpg" alt="CEM Hub Group Photo">
+   <!-- INSERT GROUP IMAGE 2 -->
+   <img src="group2.jpg" alt="CEM Hub Group Photo">
   </div>
+ </div>
 </section>
 
-<section id="contact">
-  <div class="container">
-    <h2>Contact</h2>
-    <form>
-      <input type="text" placeholder="Name" required>
-      <input type="email" placeholder="Email" required>
-      <textarea placeholder="Message" required></textarea>
-      <button class="btn">Send Message</button>
-    </form>
+<section id="resources" class="fade">
+ <div class="container">
+  <h2>Resources</h2>
+
+  <div class="card resource-card" onclick="toggleArticle(this)">
+   <h3>Purpose Discovery Framework</h3>
+   <div class="article">
+    <p>This framework helps individuals identify their strengths, direction, and meaningful path.</p>
+    <span class="read-more" onclick="expandText(event,this)">Read more</span>
+   </div>
   </div>
+
+  <div class="card resource-card" onclick="toggleArticle(this)">
+   <h3>Leadership Execution Guide</h3>
+   <div class="article">
+    <p>Learn how to move from ideas to disciplined execution with structured systems.</p>
+    <span class="read-more" onclick="expandText(event,this)">Read more</span>
+   </div>
+  </div>
+
+ </div>
+</section>
+
+<section id="contact" class="fade">
+ <div class="container">
+  <h2>Contact</h2>
+  <!-- Email Contact Form -->
+  <form action="https://formsubmit.co/victorfidelis088@gmail.com" method="POST">
+   <input type="text" name="name" placeholder="Name" required>
+   <input type="email" name="email" placeholder="Email" required>
+   <textarea name="message" placeholder="Message" required></textarea>
+   <button class="btn">Send Message</button>
+  </form>
+ </div>
 </section>
 
 <footer>
-  <p>© 2026 CEM Hub. All rights reserved.</p>
+ <p>© 2026 CEM Hub. All rights reserved.</p>
 </footer>
 
 <script>
 function toggleMenu(){
-  document.getElementById('menu').classList.toggle('active');
+ document.getElementById('menu').classList.toggle('active');
 }
+
+function toggleArticle(card){
+ const article = card.querySelector('.article');
+ article.style.display = article.style.display === 'block' ? 'none' : 'block';
+}
+
+function expandText(e,btn){
+ e.stopPropagation();
+ btn.previousElementSibling.innerHTML += " More insights, structured thinking, and deeper frameworks continue here...";
+ btn.style.display='none';
+}
+
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+  if(entry.isIntersecting){entry.target.classList.add('show')}
+ })
+})
+
+document.querySelectorAll('.fade').forEach(el=>observer.observe(el))
 </script>
 
 </body>
-     </html>
+  </html>
    
