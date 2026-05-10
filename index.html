@@ -332,22 +332,77 @@ nav a:hover{
   line-height:1.7;
 }
 
-/* HALL IMAGE */
-
-.hall-image{
-  width:100%;
-  border-radius:12px;
-  margin-top:2rem;
-
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
-
-  transition:0.3s;
+/* HALL OF FAME GRID */
+.hall-sub {
+  text-align: center;
+  color: var(--muted);
+  margin: 0.5rem 0 2.5rem;
+  font-size: 0.95rem;
 }
 
-.hall-image:hover{
-  transform:scale(1.02);
+.hall-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
+.hall-card {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transition: 0.3s;
+}
+
+.hall-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+}
+
+.hall-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  margin-bottom: 1rem;
+}
+
+.hall-card h4 {
+  font-size: 1.05rem;
+  color: var(--primary);
+  margin-bottom: 0.3rem;
+}
+
+.hall-card .dept {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+
+.hall-card .cgpa {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* Mobile: 1 per row */
+@media(max-width: 600px) {
+  .hall-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .hall-card img {
+    width: 100px;
+    height: 100px;
+  }
+  }
+
+  
 /* GALLERY */
 
 .gallery{
@@ -671,22 +726,79 @@ footer{
 </section>
 
 <!-- HALL OF FAME -->
-
 <section id="hall" class="fade">
-
   <div class="container">
-
     <h2>Hall of Fame</h2>
+    <p class="hall-sub">Recognizing students with outstanding academic performance</p>
 
-    <img
-      loading="lazy"
-      src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1400&auto=format&fit=crop"
-      class="hall-image"
-      alt="Hall of Fame"
-    />
+    <div class="hall-grid">
+      
+      <!-- Student 1 -->
+      <div class="hall-card">
+        <img src="student1.jpg" alt="Student Name">
+        <h4>Aisha Mohammed</h4>
+        <p class="dept">Computer Science</p>
+        <p class="cgpa">CGPA: 4.85</p>
+      </div>
 
+      <!-- Student 2 -->
+      <div class="hall-card">
+        <img src="student2.jpg" alt="Student Name">
+        <h4>Emmanuel Okoro</h4>
+        <p class="dept">Medicine</p>
+        <p class="cgpa">CGPA: 4.92</p>
+      </div>
+
+      <!-- Student 3 -->
+      <div class="hall-card">
+        <img src="student3.jpg" alt="Student Name">
+        <h4>Fatima Yusuf</h4>
+        <p class="dept">Law</p>
+        <p class="cgpa">CGPA: 4.78</p>
+      </div>
+
+      <!-- Student 4 -->
+      <div class="hall-card">
+        <img src="student4.jpg" alt="Student Name">
+        <h4>David Bello</h4>
+        <p class="dept">Engineering</p>
+        <p class="cgpa">CGPA: 4.81</p>
+      </div>
+
+      <!-- Student 5 -->
+      <div class="hall-card">
+        <img src="student5.jpg" alt="Student Name">
+        <h4>Blessing Eze</h4>
+        <p class="dept">Accounting</p>
+        <p class="cgpa">CGPA: 4.76</p>
+      </div>
+
+      <!-- Student 6 -->
+      <div class="hall-card">
+        <img src="student6.jpg" alt="Student Name">
+        <h4>Yusuf Ibrahim</h4>
+        <p class="dept">Economics</p>
+        <p class="cgpa">CGPA: 4.88</p>
+      </div>
+
+      <!-- Student 7 -->
+      <div class="hall-card">
+        <img src="student7.jpg" alt="Student Name">
+        <h4>Sarah Danjuma</h4>
+        <p class="dept">Microbiology</p>
+        <p class="cgpa">CGPA: 4.73</p>
+      </div>
+
+      <!-- Student 8 -->
+      <div class="hall-card">
+        <img src="student8.jpg" alt="Student Name">
+        <h4>Chinedu Okafor</h4>
+        <p class="dept">Physics</p>
+        <p class="cgpa">CGPA: 4.79</p>
+      </div>
+
+    </div>
   </div>
-
 </section>
 
 <!-- GALLERY -->
