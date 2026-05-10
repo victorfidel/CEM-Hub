@@ -334,19 +334,122 @@ nav a:hover{
 
 /* HALL IMAGE */
 
-.hall-image{
-  width:100%;
-  border-radius:12px;
-  margin-top:2rem;
-
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
-
-  transition:0.3s;
-}
-
-.hall-image:hover{
-  transform:scale(1.02);
-}
+‎
+‎.hall-grid{
+‎
+‎  /* 2 CARDS PER ROW */
+‎
+‎  display:grid;
+‎
+‎  grid-template-columns:repeat(2, 1fr);
+‎
+‎  gap:1.8rem;
+‎
+‎  margin-top:3rem;
+‎}
+‎
+‎/* CARD */
+‎
+‎.hall-card{
+‎
+‎  background:white;
+‎
+‎  border-radius:18px;
+‎
+‎  padding:1.5rem 1rem;
+‎
+‎  text-align:center;
+‎
+‎  border-top:4px solid #D4AF37;
+‎
+‎  box-shadow:0 10px 25px rgba(0,0,0,0.06);
+‎
+‎  transition:0.35s ease;
+‎}
+‎
+‎.hall-card:hover{
+‎
+‎  transform:translateY(-6px);
+‎
+‎  box-shadow:0 14px 30px rgba(0,0,0,0.12);
+‎}
+‎
+‎/* ROUND IMAGE */
+‎
+‎.hall-card img{
+‎
+‎  width:100px;
+‎  height:100px;
+‎
+‎  object-fit:cover;
+‎
+‎  border-radius:50%;
+‎
+‎  display:block;
+‎
+‎  margin:auto;
+‎
+‎  border:4px solid #1E3A8A;
+‎
+‎  box-shadow:0 6px 18px rgba(0,0,0,0.12);
+‎}
+‎
+‎/* CONTENT */
+‎
+‎.hall-content{
+‎  margin-top:1rem;
+‎}
+‎
+‎.hall-content h3{
+‎
+‎  color:#1E3A8A;
+‎
+‎  font-size:0.98rem;
+‎
+‎  margin-bottom:0.4rem;
+‎}
+‎
+‎.hall-content p{
+‎
+‎  color:#6b7280;
+‎
+‎  font-size:0.85rem;
+‎
+‎  line-height:1.5;
+‎}
+‎
+‎/* CGPA */
+‎
+‎.cgpa{
+‎
+‎  display:inline-block;
+‎
+‎  margin-top:0.9rem;
+‎
+‎  background:#D4AF37;
+‎
+‎  color:white;
+‎
+‎  padding:0.45rem 0.9rem;
+‎
+‎  border-radius:40px;
+‎
+‎  font-size:0.78rem;
+‎
+‎  font-weight:700;
+‎}
+‎
+‎/* MOBILE */
+‎
+‎@media(max-width:768px){
+‎
+‎  .hall-grid{
+‎
+‎    grid-template-columns:1fr;
+‎  }
+‎
+‎}
+‎
 
 /* GALLERY */
 
@@ -668,26 +771,164 @@ footer{
 
   </div>
 
-</section>
-
-<!-- HALL OF FAME -->
-
-<section id="hall" class="fade">
-
-  <div class="container">
-
-    <h2>Hall of Fame</h2>
-
-    <img
-      loading="lazy"
-      src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1400&auto=format&fit=crop"
-      class="hall-image"
-      alt="Hall of Fame"
-    />
-
-  </div>
-
-</section>
+‎<!-- HALL OF FAME -->
+‎
+‎<section id="hall" class="fade">
+‎
+‎  <div class="container">
+‎
+‎    <h2 style="color:#1E3A8A;">Hall of Fame</h2>
+‎
+‎    <p
+‎      style="
+‎      margin-top:1rem;
+‎      color:#6b7280;
+‎      line-height:1.8;
+‎      max-width:760px;
+‎      "
+‎    >
+‎      Celebrating outstanding students who demonstrated academic excellence, discipline, and exceptional performance within CEM Hub.
+‎    </p>
+‎
+‎    <div class="hall-grid">
+‎
+‎      <!-- STUDENT 1 -->
+‎
+‎      <div class="hall-card">
+‎
+‎        <img
+‎          loading="lazy"
+‎          src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&auto=format&fit=crop"
+‎          alt="Student"
+‎        />
+‎
+‎        <div class="hall-content">
+‎
+‎          <h3>Daniel Stephen</h3>
+‎
+‎          <p>Computer Science Department</p>
+‎
+‎          <span class="cgpa">CGPA: 4.78</span>
+‎
+‎        </div>
+‎
+‎      </div>
+‎
+‎      <!-- STUDENT 2 -->
+‎
+‎      <div class="hall-card">
+‎
+‎        <img
+‎          loading="lazy"
+‎          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop"
+‎          alt="Student"
+‎        />
+‎
+‎        <div class="hall-content">
+‎
+‎          <h3>Esther Michael</h3>
+‎
+‎          <p>Biochemistry Department</p>
+‎
+‎          <span class="cgpa">CGPA: 4.71</span>
+‎
+‎        </div>
+‎
+‎      </div>
+‎
+‎      <!-- STUDENT 3 -->
+‎
+‎      <div class="hall-card">
+‎
+‎        <img
+‎          loading="lazy"
+‎          src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop"
+‎          alt="Student"
+‎        />
+‎
+‎        <div class="hall-content">
+‎
+‎          <h3>Samuel John</h3>
+‎
+‎          <p>Economics Department</p>
+‎
+‎          <span class="cgpa">CGPA: 4.65</span>
+‎
+‎        </div>
+‎
+‎      </div>
+‎
+‎      <!-- STUDENT 4 -->
+‎
+‎      <div class="hall-card">
+‎
+‎        <img
+‎          loading="lazy"
+‎          src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=800&auto=format&fit=crop"
+‎          alt="Student"
+‎        />
+‎
+‎        <div class="hall-content">
+‎
+‎          <h3>Grace Emmanuel</h3>
+‎
+‎          <p>Nursing Science Department</p>
+‎
+‎          <span class="cgpa">CGPA: 4.83</span>
+‎
+‎        </div>
+‎
+‎      </div>
+‎
+‎      <!-- STUDENT 5 -->
+‎
+‎      <div class="hall-card">
+‎
+‎        <img
+‎          loading="lazy"
+‎          src="https://images.unsplash.com/photo-1504593811423-6dd665756598?q=80&w=800&auto=format&fit=crop"
+‎          alt="Student"
+‎        />
+‎
+‎        <div class="hall-content">
+‎
+‎          <h3>Joshua David</h3>
+‎
+‎          <p>Political Science Department</p>
+‎
+‎          <span class="cgpa">CGPA: 4.59</span>
+‎
+‎        </div>
+‎
+‎      </div>
+‎
+‎      <!-- STUDENT 6 -->
+‎
+‎      <div class="hall-card">
+‎
+‎        <img
+‎          loading="lazy"
+‎          src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=800&auto=format&fit=crop"
+‎          alt="Student"
+‎        />
+‎
+‎        <div class="hall-content">
+‎
+‎          <h3>Mercy Philip</h3>
+‎
+‎          <p>Accounting Department</p>
+‎
+‎          <span class="cgpa">CGPA: 4.74</span>
+‎
+‎        </div>
+‎
+‎      </div>
+‎
+‎    </div>
+‎
+‎  </div>
+‎
+‎</section>
 
 <!-- GALLERY -->
 
