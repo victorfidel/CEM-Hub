@@ -334,93 +334,20 @@ nav a:hover{
 
 /* HALL IMAGE */
 
-‎‎.hof-title{
-‎  text-align:center;
-‎  color:#1E3A8A;
-‎  font-size:2rem;
-‎  margin-bottom:0.8rem;
-‎}
-‎
-‎.hof-subtitle{
-‎  text-align:center;
-‎  color:#6b7280;
-‎  max-width:700px;
-‎  margin:0 auto 2.5rem;
-‎  line-height:1.7;
-‎}
-‎
-‎/* 2 COLUMNS PER ROW */
-‎
-‎.hof-grid{
-‎  display:grid;
-‎  grid-template-columns:repeat(2,1fr);
-‎  gap:1.2rem;
-‎}
-‎
-‎/* CARD */
-‎
-‎.hof-card{
-‎  display:flex;
-‎  align-items:center;
-‎  gap:1rem;
-‎
-‎  background:white;
-‎  padding:1rem 1.2rem;
-‎
-‎  border-radius:12px;
-‎
-‎  box-shadow:0 8px 20px rgba(0,0,0,0.05);
-‎
-‎  border-left:4px solid #D4AF37;
-‎}
-‎
-‎/* IMAGE */
-‎
-‎.hof-card img{
-‎  width:65px;
-‎  height:65px;
-‎  border-radius:50%;
-‎  object-fit:cover;
-‎
-‎  border:3px solid #1E3A8A;
-‎}
-‎
-‎/* TEXT */
-‎
-‎.hof-card h3{
-‎  font-size:0.95rem;
-‎  color:#1E3A8A;
-‎  margin-bottom:0.2rem;
-‎}
-‎
-‎.hof-card p{
-‎  font-size:0.8rem;
-‎  color:#6b7280;
-‎}
-‎
-‎.hof-card span{
-‎  display:inline-block;
-‎  margin-top:0.3rem;
-‎
-‎  font-size:0.75rem;
-‎  font-weight:600;
-‎
-‎  color:white;
-‎  background:#D4AF37;
-‎
-‎  padding:0.25rem 0.6rem;
-‎  border-radius:20px;
-‎}
-‎
-‎/* MOBILE */
-‎
-‎@media(max-width:768px){
-‎  .hof-grid{
-‎    grid-template-columns:1fr;
-‎  }
-‎}
-‎‎  
-‎  
+.hall-image{
+  width:100%;
+  border-radius:12px;
+  margin-top:2rem;
+
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+
+  transition:0.3s;
+}
+
+.hall-image:hover{
+  transform:scale(1.02);
+}
+
 /* GALLERY */
 
 .gallery{
@@ -741,100 +668,27 @@ footer{
 
   </div>
 
-‎<!-- HALL OF FAME -->
-‎
-‎‎        -card">
-‎        <img src="https://randomuser.me/api/portraits/women/52.jpg" alt="Student">
-‎        <section id="hall">
-‎
-‎  <div class="container">
-‎
-‎    <h2 class="hof-title">Hall of Fame</h2>
-‎
-‎    <p class="hof-subtitle">
-‎      Celebrating outstanding students of CEM Hub who demonstrate academic excellence, discipline, and leadership.
-‎    </p>
-‎
-‎    <div class="hof-grid">
-‎
-‎      <div class="hof-card">
-‎        <img src="https://randomuser.me/api/portraits/men/11.jpg">
-‎        <div>
-‎          <h3>Daniel Stephen</h3>
-‎          <p>Computer Science</p>
-‎          <span>CGPA: 4.78</span>
-‎        </div>
-‎      </div>
-‎
-‎      <div class="hof-card">
-‎        <img src="https://randomuser.me/api/portraits/women/21.jpg">
-‎        <div>
-‎          <h3>Esther Michael</h3>
-‎          <p>Biochemistry</p>
-‎          <span>CGPA: 4.71</span>
-‎        </div>
-‎      </div>
-‎
-‎      <div class="hof-card">
-‎        <img src="https://randomuser.me/api/portraits/men/31.jpg">
-‎        <div>
-‎          <h3>Samuel John</h3>
-‎          <p>Economics</p>
-‎          <span>CGPA: 4.65</span>
-‎        </div>
-‎      </div>
-‎
-‎      <div class="hof-card">
-‎        <img src="https://randomuser.me/api/portraits/women/32.jpg">
-‎        <div>
-‎          <h3>Grace Emmanuel</h3>
-‎          <p>Nursing Science</p>
-‎          <span>CGPA: 4.83</span>
-‎        </div>
-‎      </div>
-‎
-‎      <div class="hof-card">
-‎        <img src="https://randomuser.me/api/portraits/men/41.jpg">
-‎        <div>
-‎          <h3>Joshua David</h3>
-‎          <p>Political Science</p>
-‎          <span>CGPA: 4.59</span>
-‎        </div>
-‎      </div>
-‎
-‎      <div class="hof-card">
-‎        <img src="https://randomuser.me/api/portraits/women/45.jpg">
-‎        <div>
-‎          <h3>Mercy Philip</h3>
-‎          <p>Accounting</p>
-‎          <span>CGPA: 4.74</span>
-‎        </div>
-‎      </div>
-‎
-‎      <div class="hof-card">
-‎        <img src="https://randomuser.me/api/portraits/men/52.jpg">
-‎        <div>
-‎          <h3>Peter Andrew</h3>
-‎          <p>Engineering</p>
-‎          <span>CGPA: 4.68</span>
-‎        </div>
-‎      </div>
-‎
-‎      <div class="hof-card">
-‎        <img src="https://randomuser.me/api/portraits/women/52.jpg">
-‎        <div>
-‎          <h3>Joy Uche</h3>
-‎          <p>Law</p>
-‎          <span>CGPA: 4.80</span>
-‎        </div>
-‎      </div>
-‎
-‎    </div>
-‎
-‎  </div>
-‎
-‎</section>
-‎      
+</section>
+
+<!-- HALL OF FAME -->
+
+<section id="hall" class="fade">
+
+  <div class="container">
+
+    <h2>Hall of Fame</h2>
+
+    <img
+      loading="lazy"
+      src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1400&auto=format&fit=crop"
+      class="hall-image"
+      alt="Hall of Fame"
+    />
+
+  </div>
+
+</section>
+
 <!-- GALLERY -->
 
 <section id="gallery" class="fade" style="background:var(--bg);">
@@ -994,4 +848,5 @@ document.querySelectorAll('.fade').forEach((el)=>{
 </script>
 
 </body>
-      </html>
+  </html>
+  
