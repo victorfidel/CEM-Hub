@@ -335,122 +335,104 @@ nav a:hover{
 /* HALL IMAGE */
 
 ‎
-‎.hall-grid{
+‎#hall-of-fame{
+‎  padding:5rem 1.5rem;
+‎  background:#f7f9fc;
+‎}
 ‎
-‎  /* 2 CARDS PER ROW */
+‎.hof-container{
+‎  max-width:1100px;
+‎  margin:auto;
+‎}
 ‎
+‎.hof-title{
+‎  text-align:center;
+‎  color:#1E3A8A;
+‎  font-size:2rem;
+‎  margin-bottom:0.8rem;
+‎}
+‎
+‎.hof-subtitle{
+‎  text-align:center;
+‎  color:#6b7280;
+‎  max-width:700px;
+‎  margin:auto;
+‎  line-height:1.7;
+‎  margin-bottom:2.5rem;
+‎}
+‎
+‎/* GRID: 2 per row */
+‎
+‎.hof-grid{
 ‎  display:grid;
-‎
-‎  grid-template-columns:repeat(2, 1fr);
-‎
-‎  gap:1.8rem;
-‎
-‎  margin-top:3rem;
+‎  grid-template-columns:repeat(2,1fr);
+‎  gap:1.2rem;
 ‎}
 ‎
 ‎/* CARD */
 ‎
-‎.hall-card{
+‎.hof-card{
+‎  display:flex;
+‎  align-items:center;
+‎  gap:1rem;
 ‎
 ‎  background:white;
+‎  padding:1rem 1.2rem;
 ‎
-‎  border-radius:18px;
+‎  border-radius:12px;
 ‎
-‎  padding:1.5rem 1rem;
+‎  box-shadow:0 8px 20px rgba(0,0,0,0.05);
 ‎
-‎  text-align:center;
-‎
-‎  border-top:4px solid #D4AF37;
-‎
-‎  box-shadow:0 10px 25px rgba(0,0,0,0.06);
-‎
-‎  transition:0.35s ease;
+‎  border-left:4px solid #D4AF37;
 ‎}
 ‎
-‎.hall-card:hover{
+‎/* IMAGE */
 ‎
-‎  transform:translateY(-6px);
-‎
-‎  box-shadow:0 14px 30px rgba(0,0,0,0.12);
-‎}
-‎
-‎/* ROUND IMAGE */
-‎
-‎.hall-card img{
-‎
-‎  width:100px;
-‎  height:100px;
-‎
+‎.hof-card img{
+‎  width:65px;
+‎  height:65px;
+‎  border-radius:50%;
 ‎  object-fit:cover;
 ‎
-‎  border-radius:50%;
-‎
-‎  display:block;
-‎
-‎  margin:auto;
-‎
-‎  border:4px solid #1E3A8A;
-‎
-‎  box-shadow:0 6px 18px rgba(0,0,0,0.12);
+‎  border:3px solid #1E3A8A;
 ‎}
 ‎
-‎/* CONTENT */
+‎/* TEXT */
 ‎
-‎.hall-content{
-‎  margin-top:1rem;
-‎}
-‎
-‎.hall-content h3{
-‎
+‎.hof-card h3{
+‎  font-size:0.95rem;
 ‎  color:#1E3A8A;
-‎
-‎  font-size:0.98rem;
-‎
-‎  margin-bottom:0.4rem;
+‎  margin-bottom:0.2rem;
 ‎}
 ‎
-‎.hall-content p{
-‎
+‎.hof-card p{
+‎  font-size:0.8rem;
 ‎  color:#6b7280;
-‎
-‎  font-size:0.85rem;
-‎
-‎  line-height:1.5;
 ‎}
 ‎
-‎/* CGPA */
-‎
-‎.cgpa{
-‎
+‎.hof-card span{
 ‎  display:inline-block;
+‎  margin-top:0.3rem;
 ‎
-‎  margin-top:0.9rem;
-‎
-‎  background:#D4AF37;
+‎  font-size:0.75rem;
+‎  font-weight:600;
 ‎
 ‎  color:white;
+‎  background:#D4AF37;
 ‎
-‎  padding:0.45rem 0.9rem;
-‎
-‎  border-radius:40px;
-‎
-‎  font-size:0.78rem;
-‎
-‎  font-weight:700;
+‎  padding:0.25rem 0.6rem;
+‎  border-radius:20px;
 ‎}
 ‎
 ‎/* MOBILE */
 ‎
 ‎@media(max-width:768px){
-‎
-‎  .hall-grid{
-‎
+‎  .hof-grid{
 ‎    grid-template-columns:1fr;
 ‎  }
-‎
 ‎}
 ‎
-
+‎  
 /* GALLERY */
 
 .gallery{
@@ -773,155 +755,96 @@ footer{
 
 ‎<!-- HALL OF FAME -->
 ‎
-‎<section id="hall" class="fade">
+‎<section id="hall-of-fame">
 ‎
-‎  <div class="container">
+‎  <div class="hof-container">
 ‎
-‎    <h2 style="color:#1E3A8A;">Hall of Fame</h2>
+‎    <h2 class="hof-title">Hall of Fame</h2>
 ‎
-‎    <p
-‎      style="
-‎      margin-top:1rem;
-‎      color:#6b7280;
-‎      line-height:1.8;
-‎      max-width:760px;
-‎      "
-‎    >
-‎      Celebrating outstanding students who demonstrated academic excellence, discipline, and exceptional performance within CEM Hub.
+‎    <p class="hof-subtitle">
+‎      Celebrating outstanding students of CEM Hub who demonstrate academic excellence, discipline, and leadership.
 ‎    </p>
 ‎
-‎    <div class="hall-grid">
+‎    <div class="hof-grid">
 ‎
 ‎      <!-- STUDENT 1 -->
-‎
-‎      <div class="hall-card">
-‎
-‎        <img
-‎          loading="lazy"
-‎          src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&auto=format&fit=crop"
-‎          alt="Student"
-‎        />
-‎
-‎        <div class="hall-content">
-‎
+‎      <div class="hof-card">
+‎        <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Student">
+‎        <div>
 ‎          <h3>Daniel Stephen</h3>
-‎
-‎          <p>Computer Science Department</p>
-‎
-‎          <span class="cgpa">CGPA: 4.78</span>
-‎
+‎          <p>Computer Science</p>
+‎          <span>CGPA: 4.78</span>
 ‎        </div>
-‎
 ‎      </div>
 ‎
 ‎      <!-- STUDENT 2 -->
-‎
-‎      <div class="hall-card">
-‎
-‎        <img
-‎          loading="lazy"
-‎          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop"
-‎          alt="Student"
-‎        />
-‎
-‎        <div class="hall-content">
-‎
+‎      <div class="hof-card">
+‎        <img src="https://randomuser.me/api/portraits/women/21.jpg" alt="Student">
+‎        <div>
 ‎          <h3>Esther Michael</h3>
-‎
-‎          <p>Biochemistry Department</p>
-‎
-‎          <span class="cgpa">CGPA: 4.71</span>
-‎
+‎          <p>Biochemistry</p>
+‎          <span>CGPA: 4.71</span>
 ‎        </div>
-‎
 ‎      </div>
 ‎
 ‎      <!-- STUDENT 3 -->
-‎
-‎      <div class="hall-card">
-‎
-‎        <img
-‎          loading="lazy"
-‎          src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop"
-‎          alt="Student"
-‎        />
-‎
-‎        <div class="hall-content">
-‎
+‎      <div class="hof-card">
+‎        <img src="https://randomuser.me/api/portraits/men/31.jpg" alt="Student">
+‎        <div>
 ‎          <h3>Samuel John</h3>
-‎
-‎          <p>Economics Department</p>
-‎
-‎          <span class="cgpa">CGPA: 4.65</span>
-‎
+‎          <p>Economics</p>
+‎          <span>CGPA: 4.65</span>
 ‎        </div>
-‎
 ‎      </div>
 ‎
 ‎      <!-- STUDENT 4 -->
-‎
-‎      <div class="hall-card">
-‎
-‎        <img
-‎          loading="lazy"
-‎          src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=800&auto=format&fit=crop"
-‎          alt="Student"
-‎        />
-‎
-‎        <div class="hall-content">
-‎
+‎      <div class="hof-card">
+‎        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Student">
+‎        <div>
 ‎          <h3>Grace Emmanuel</h3>
-‎
-‎          <p>Nursing Science Department</p>
-‎
-‎          <span class="cgpa">CGPA: 4.83</span>
-‎
+‎          <p>Nursing Science</p>
+‎          <span>CGPA: 4.83</span>
 ‎        </div>
-‎
 ‎      </div>
 ‎
 ‎      <!-- STUDENT 5 -->
-‎
-‎      <div class="hall-card">
-‎
-‎        <img
-‎          loading="lazy"
-‎          src="https://images.unsplash.com/photo-1504593811423-6dd665756598?q=80&w=800&auto=format&fit=crop"
-‎          alt="Student"
-‎        />
-‎
-‎        <div class="hall-content">
-‎
+‎      <div class="hof-card">
+‎        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Student">
+‎        <div>
 ‎          <h3>Joshua David</h3>
-‎
-‎          <p>Political Science Department</p>
-‎
-‎          <span class="cgpa">CGPA: 4.59</span>
-‎
+‎          <p>Political Science</p>
+‎          <span>CGPA: 4.59</span>
 ‎        </div>
-‎
 ‎      </div>
 ‎
 ‎      <!-- STUDENT 6 -->
-‎
-‎      <div class="hall-card">
-‎
-‎        <img
-‎          loading="lazy"
-‎          src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=800&auto=format&fit=crop"
-‎          alt="Student"
-‎        />
-‎
-‎        <div class="hall-content">
-‎
+‎      <div class="hof-card">
+‎        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Student">
+‎        <div>
 ‎          <h3>Mercy Philip</h3>
-‎
-‎          <p>Accounting Department</p>
-‎
-‎          <span class="cgpa">CGPA: 4.74</span>
-‎
+‎          <p>Accounting</p>
+‎          <span>CGPA: 4.74</span>
 ‎        </div>
+‎      </div>
 ‎
+‎      <!-- STUDENT 7 -->
+‎      <div class="hof-card">
+‎        <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Student">
+‎        <div>
+‎          <h3>Peter Andrew</h3>
+‎          <p>Engineering</p>
+‎          <span>CGPA: 4.68</span>
+‎        </div>
+‎      </div>
+‎
+‎      <!-- STUDENT 8 -->
+‎      <div class="hof-card">
+‎        <img src="https://randomuser.me/api/portraits/women/52.jpg" alt="Student">
+‎        <div>
+‎          <h3>Joy Uche</h3>
+‎          <p>Law</p>
+‎          <span>CGPA: 4.80</span>
+‎        </div>
 ‎      </div>
 ‎
 ‎    </div>
@@ -929,7 +852,8 @@ footer{
 ‎  </div>
 ‎
 ‎</section>
-
+‎‎          ‎
+‎      
 <!-- GALLERY -->
 
 <section id="gallery" class="fade" style="background:var(--bg);">
