@@ -551,42 +551,6 @@
 ‎    grid-template-columns:1fr;
 ‎  }
 ‎}
-‎
-‎/* MODAL */
-‎.modal{
-‎  display:none;
-‎  position:fixed;
-‎  z-index:6000;
-‎  left:0;
-‎  top:0;
-‎  width:100%;
-‎  height:100%;
-‎  background:rgba(0,0,0,0.6);
-‎  backdrop-filter:blur(4px);
-‎  align-items:center;
-‎  justify-content:center;
-‎  padding:1rem;
-‎}
-‎.modal.active{display:flex;}
-‎.modal-content{
-‎  background:white;
-‎  padding:2.5rem 2rem;
-‎  border-radius:16px;
-‎  max-width:450px;
-‎  width:100%;
-‎  position:relative;
-‎  box-shadow:0 20px 60px rgba(0,0,0,0.3);
-‎}
-‎.close{
-‎  position:absolute;
-‎  top:1rem;
-‎  right:1.2rem;
-‎  font-size:1.8rem;
-‎  color:var(--muted);
-‎  cursor:pointer;
-‎}
-‎.close:hover{color:var(--primary);}
-‎
 ‎</style>
 ‎</head>
 ‎
@@ -646,7 +610,12 @@
 ‎         A community committed to academic excellence, leadership development, mentorship, innovation, and purpose-driven growth.
 ‎    </p>
 ‎
-‎    <button class="btn" onclick="openModal()">Join CEM Hub</button>
+‎    <a
+‎      href="https://wa.me/2348149169813?text=Hello%20CEM%20Hub%2C%20I%20would%20like%20to%20join%20the%20program"
+‎      target="_blank"
+‎    >
+‎      <button class="btn">Join CEM Hub</button>
+‎    </a>
 ‎
 ‎    <div class="scroll-indicator">
 ‎      Scroll Down ↓
@@ -745,7 +714,12 @@
 ‎      purpose-driven leaders.
 ‎    </p>
 ‎
-‎    <button class="btn" onclick="openModal()">Join CEM Hub</button>
+‎    <a
+‎      href="https://wa.me/2348149169813?text=Hello%20CEM%20Hub%2C%20I%20would%20like%20to%20join%20the%20program"
+‎      target="_blank"
+‎    >
+‎      <button class="btn">Join Now</button>
+‎    </a>
 ‎
 ‎  </div>
 ‎
@@ -933,79 +907,7 @@
 ‎  <p>© 2026 CEM Hub. All rights reserved.</p>
 ‎</footer>
 ‎
-‎<!-- JOIN MODAL -->
-‎<div id="joinModal" class="modal">
-‎  <div class="modal-content">
-‎    <span class="close" onclick="closeModal()">&times;</span>
-‎    
-‎    <h3>Join CEM Hub</h3>
-‎    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">
-‎      Fill this to register. Payment comes next.
-‎    </p>
-‎
-‎    <form id="joinForm">
-‎      <input type="text" name="full_name" placeholder="Full Name" required>
-‎      <input type="email" name="email" placeholder="Email" required>
-‎      <input type="text" name="phone" placeholder="WhatsApp Number" required>
-‎      <input type="text" name="department" placeholder="Department">
-‎      <input type="text" name="level" placeholder="Level e.g. 200L">
-‎      <button type="submit" class="btn" style="width:100%;">Submit</button>
-‎    </form>
-‎  </div>
-‎</div>
-‎
 ‎<script>
-‎
-‎/* MODAL FUNCTIONS - add these first */
-‎function openModal(){
-‎  document.getElementById('joinModal').classList.add('active');
-‎}
-‎
-‎function closeModal(){
-‎  document.getElementById('joinModal').classList.remove('active');
-‎}
-‎
-‎function closeModalOutside(e){
-‎  if(e.target.id === 'joinModal') closeModal();
-‎}
-‎document.getElementById('joinModal').addEventListener('click', closeModalOutside);
-‎
-‎/* MOBILE MENU */
-‎function toggleMenu(){
-‎  document.getElementById('menu').classList.toggle('active');
-‎}
-‎
-‎/* RESOURCE TOGGLE */
-‎function toggleArticle(card){
-‎  const article = card.querySelector('.article');
-‎  article.style.display = article.style.display === 'block' ? 'none' : 'block';
-‎}
-‎
-‎function expandText(e,btn){
-‎  e.stopPropagation();
-‎  btn.previousElementSibling.innerHTML += " More insights and deeper frameworks for leadership, clarity, discipline, and execution.";
-‎  btn.style.display='none';
-‎}
-‎
-‎/* SCROLL ANIMATION */
-‎const observer = new IntersectionObserver((entries)=>{
-‎  entries.forEach((entry)=>{
-‎    if(entry.isIntersecting){
-‎      entry.target.classList.add('show');
-‎    }
-‎  });
-‎},{threshold:0.1});
-‎
-‎document.querySelectorAll('.fade').forEach((el)=>{
-‎  observer.observe(el);
-‎});
-‎
-‎/* FORM SUBMIT - for now just show alert */
-‎document.getElementById('joinForm').addEventListener('submit', function(e){
-‎  e.preventDefault();
-‎  alert('Registration submitted! Next we connect this to Supabase.');
-‎  closeModal();
-‎});
 ‎
 ‎/* MOBILE MENU */
 ‎
@@ -1051,4 +953,13 @@
 ‎  threshold:0.1
 ‎});
 ‎
-‎document.querySelectorAll('.fad
+‎document.querySelectorAll('.fade').forEach((el)=>{
+‎  observer.observe(el);
+‎});
+‎
+‎</script>
+‎
+‎</body>
+‎  </html>
+‎  
+‎
