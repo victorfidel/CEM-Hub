@@ -275,60 +275,81 @@ footer{background:linear-gradient(rgba(10,31,61,0.78),rgba(10,31,61,0.9)),url('h
 </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+document.addEventListener('DOMContentLoaded', function(){
+
+  // Modal functions
   function openModal(){
-  document.getElementById('joinModal').classList.add('active');
-}
-
-function closeModal(){
-  document.getElementById('joinModal').classList.remove('active');
-‎  }
-  // Initialize Supabase
-const supabaseUrl = https://fveuxzijvutieavzdfvg.supabase.co;
-const supabaseKey = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZXV4emlqdnV0aWVhdnpkZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0MzYyNjAsImV4cCI6MjA5NDAxMjI2MH0.Z5K9D0rv2m6AjLqzIIUOXslFqEp69b8143maIu6Y9qU;
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-document.getElementById('joinForm').addEventListener('submit', async function(e){
-  e.preventDefault();
-
-  const formData = new FormData(e.target);
-  const data = Object.fromEntries(formData.entries());
-
-  const { error } = await supabase
-   .from('registrations')
-   .insert([data]);
-
-  if(error){
-    alert('Error: ' + error.message);
-    console.log(error);
-  } else {
-    document.getElementById('joinForm').style.display = 'none';
-    document.getElementById('successMsg').style.display = 'block';
-    setTimeout(closeModal, 2000);
+    document.getElementById('joinModal').classList.add('active');
   }
-});
-function toggleMenu(){
-  document.getElementById('menu').classList.toggle('active');
-}
-function toggleArticle(card){
-  const article = card.querySelector('.article');
-  article.style.display = article.style.display === 'block' ? 'none' : 'block';
-}
-function expandText(e,btn){
-  e.stopPropagation();
-  btn.previousElementSibling.innerHTML += " More insights and deeper frameworks for leadership, clarity, discipline, and execution.";
-  btn.style.display='none';
-}
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach((entry)=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('show');
-    }
+
+  function closeModal(){
+    document.getElementById('joinModal').classList.remove('active');
+  }
+
+  // Make them global for onclick
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+
+  // Mobile menu
+  function toggleMenu(){
+    document.getElementById('menu').classList.toggle('active');
+  }
+  window.toggleMenu = toggleMenu;
+
+  // Resources toggle
+  function toggleArticle(card){
+    const article = card.querySelector('.article');
+    article.style.display = article.style.display === 'block'? 'none' : 'block';
+  }
+  window.toggleArticle = toggleArticle;
+
+  function expandText(e,btn){
+    e.stopPropagation();
+    btn.previousElementSibling.innerHTML += " More insights and deeper frameworks for leadership, clarity, discipline, and execution.";
+    btn.style.display='none';
+  }
+  window.expandText = expandText;
+
+  // Fade animation
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach((entry)=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+      }
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.fade').forEach((el)=>{
+    observer.observe(el);
   });
-},{threshold:0.1});
-document.querySelectorAll('.fade').forEach((el)=>{
-  observer.observe(el);
+
+  // Initialize Supabase
+  const supabaseUrl = 'https://fveuxzijvutieavzdfvg.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZXV4emlqdnV0aWVhdnpkZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0MzYyNjAsImV4cCI6MjA5NDAxMjI2MH0.Z5K9D0rv2m6AjLqzIIUOXslFqEp69b8143maIu6Y9qU';
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+  // Form submit
+  const form = document.getElementById('joinForm');
+  if(form){
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      const { error } = await supabase.from('registrations').insert([data]);
+
+      if(error){
+        alert('Error: ' + error.message);
+        console.log(error);
+      } else {
+        document.getElementById('joinForm').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+        setTimeout(closeModal, 2000);
+      }
+    });
+  }
+
 });
 </script>
-
 </body>
-  </html>
+</html>
