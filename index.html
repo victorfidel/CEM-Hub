@@ -551,6 +551,49 @@ footer{
     grid-template-columns:1fr;
   }
 }
+
+  /* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  z-index:6000;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(4px);
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+}
+
+.modal.active{
+  display:flex;
+}
+
+.modal-content{
+  background:white;
+  padding:2.5rem 2rem;
+  border-radius:16px;
+  max-width:450px;
+  width:100%;
+  position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+
+.close{
+  position:absolute;
+  top:1rem;
+  right:1.2rem;
+  font-size:1.8rem;
+  color:var(--muted);
+  cursor:pointer;
+}
+
+.close:hover{
+  color:var(--primary);
+  }
 </style>
 </head>
 
