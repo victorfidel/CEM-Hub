@@ -83,6 +83,37 @@ footer{background:linear-gradient(rgba(10,31,61,0.78),rgba(10,31,61,0.9)),url('h
 .fade{opacity:0;transform:translateY(40px);transition:1s;}
 .fade.show{opacity:1;transform:translateY(0);}
 @media(max-width:768px){nav ul{display:none;}.hamburger{display:flex;}.hero{min-height:65vh;padding:6rem 1.5rem 3rem;}.hero h1{font-size:2rem;}.hero p{font-size:0.94rem;}section{padding:5rem 1.3rem;}.cta h2{font-size:2rem;}.gallery{grid-template-columns:1fr;}}
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  z-index:6000;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(4px);
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+}
+.modal.active{display:flex;}
+.modal-content{
+  background:white;
+  padding:2.5rem 2rem;
+  border-radius:16px;
+  max-width:450px;
+  width:100%;
+  position:relative;
+}
+.close{
+  position:absolute;
+  top:1rem;
+  right:1.2rem;
+  font-size:1.8rem;
+  cursor:pointer;
+                         }
 </style>
 </head>
 
@@ -223,7 +254,14 @@ footer{background:linear-gradient(rgba(10,31,61,0.78),rgba(10,31,61,0.9)),url('h
 <footer>
   <p>© 2026 CEM Hub. All rights reserved.</p>
 </footer>
-
+<div id="joinModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h3>Join CEM Hub</h3>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">Test modal</p>
+    <p>If you can see this, the modal works.</p>
+  </div>
+</div>
 <script>
 function toggleMenu(){
   document.getElementById('menu').classList.toggle('active');
