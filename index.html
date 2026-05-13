@@ -1026,6 +1026,64 @@ document.querySelectorAll('.fade').forEach((el)=>{
   observer.observe(el);
 });
 
+  // SUPABASE SETUP
+const SUPABASE_URL = 'https://fveuxzijvutieavzdfvg.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZXV4emlqdnV0aWVhdnpkZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0MzYyNjAsImV4cCI6MjA5NDAxMjI2MH0.Z5K9D0rv2m6AjLqzIIUOXslFqEp69b8143maIu6Y9qU';
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const modal = document.getElementById('joinModal');
+const form = document.getElementById('joinForm');
+let currentUser = null;
+
+// OPEN & CLOSE MODAL
+function openModal(){
+  modal.classList.add('active');
+}
+
+function closeModal(){
+  modal.classList.remove('active');
+}
+
+// Close when clicking outside the white box
+modal.onclick = (e) => {
+  if(e.target === modal) closeModal();
+}
+
+// HANDLE FORM SUBMIT
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const formData = Object.fromEntries(new FormData(form).entries());
+  const tx_ref = 'CEM_' + Date.now();
+  
+  const { data, error } = await supabase.from('Members').insert([{
+    full_name: formData.full_name,
+    email: formData.email,
+    whatsapp_no: formData.phone,
+    department: formData.department,
+    level: formData.level,
+    flutterwave_tx_ref: tx_ref,
+    payment_status: 'pending'
+  }]).select().single();
+
+  if(error){
+    alert('Error: ' + error.message);
+    return;
+  }
+
+  currentUser = data;
+  form.style.display = 'none';
+  document.getElementById('paymentSection').style.display = 'block';
+});
+
+// HANDLE PAYMENT BUTTON
+document.getElementById('payBtn').onclick = () => {
+  // REPLACE THIS WITH YOUR FLUTTERWAVE PAYMENT LINK
+  const FLUTTERWAVE_LINK = 'PASTE_YOUR_FLUTTERWAVE_LINK_HERE';
+  const paymentURL = `${FLUTTERWAVE_LINK}?tx_ref=${currentUser.flutterwave_tx_ref}&customer[email]=${currentUser.email}`;
+  window.location.href = paymentURL;
+  }
+
 </script>
 
 </body>
