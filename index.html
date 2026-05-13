@@ -965,7 +965,8 @@ footer{
     </div>
   </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
 <script>
 
 /* MOBILE MENU */
@@ -973,6 +974,14 @@ footer{
 function toggleMenu(){
   document.getElementById('menu').classList.toggle('active');
 }
+// OPEN & CLOSE MODAL
+function openModal(){
+  modal.classList.add('active');
+}
+
+function closeModal(){
+  modal.classList.remove('active');
+  }  
 
 /* RESOURCE TOGGLE */
 
@@ -1024,15 +1033,6 @@ const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const modal = document.getElementById('joinModal');
 const form = document.getElementById('joinForm');
 let currentUser = null;
-
-// OPEN & CLOSE MODAL
-function openModal(){
-  modal.classList.add('active');
-}
-
-function closeModal(){
-  modal.classList.remove('active');
-}
 
 // Close when clicking outside the white box
 modal.onclick = (e) => {
