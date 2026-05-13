@@ -153,9 +153,7 @@ footer{background:linear-gradient(rgba(10,31,61,0.78),rgba(10,31,61,0.9)),url('h
   <div class="hero-content">
     <h1>CEM Hub FUlafia</h1>
     <p>A community committed to academic excellence, leadership development, mentorship, innovation, and purpose-driven growth.</p>
-    <a href="https://wa.me/2348149169813?text=Hello%20CEM%20Hub%2C%20I%20would%20like%20to%20join%20the%20program" target="_blank">
-      <button class="btn">Join CEM Hub</button>
-    </a>
+    <button class="btn" onclick="openModal()">Join CEM Hub</button>
     <div class="scroll-indicator">Scroll Down ↓</div>
   </div>
 </section>
@@ -193,9 +191,7 @@ footer{background:linear-gradient(rgba(10,31,61,0.78),rgba(10,31,61,0.9)),url('h
   <div class="container">
     <h2>Become Part of CEM Hub</h2>
     <p>Join a structured ecosystem designed to shape disciplined, purpose-driven leaders.</p>
-    <a href="https://wa.me/2348149169813?text=Hello%20CEM%20Hub%2C%20I%20would%20like%20to%20join%20the%20program" target="_blank">
-      <button class="btn">Join Now</button>
-    </a>
+    <button class="btn" onclick="openModal()">Join CEM Hub</button>
   </div>
 </section>
 
@@ -263,6 +259,13 @@ footer{background:linear-gradient(rgba(10,31,61,0.78),rgba(10,31,61,0.9)),url('h
   </div>
 </div>
 <script>
+  function openModal(){
+  document.getElementById('joinModal').classList.add('active');
+}
+
+function closeModal(){
+  document.getElementById('joinModal').classList.remove('active');
+  }
 function toggleMenu(){
   document.getElementById('menu').classList.toggle('active');
 }
