@@ -906,6 +906,32 @@ footer{
 <footer>
   <p>© 2026 CEM Hub. All rights reserved.</p>
 </footer>
+  <!-- JOIN MODAL -->
+<div id="joinModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    
+    <h3>Join CEM Hub</h3>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.5rem;">
+      Fill this to register. Payment comes next.
+    </p>
+
+    <form id="joinForm">
+      <input type="text" name="full_name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="phone" placeholder="WhatsApp Number" required>
+      <input type="text" name="department" placeholder="Department">
+      <input type="text" name="level" placeholder="Level e.g. 200L">
+      
+      <button type="submit" class="btn" style="width:100%;">Continue to Payment</button>
+    </form>
+
+    <div id="paymentSection" style="display:none; text-align:center;">
+      <p style="color:#10b981; font-weight:600; margin-bottom:1rem;">✓ Registration saved</p>
+      <button id="payBtn" class="btn" style="width:100%;">Pay Now with Flutterwave</button>
+    </div>
+  </div>
+</div>
 
 <script>
 
