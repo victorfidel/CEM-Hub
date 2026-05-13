@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function(){
       const formData = new FormData(e.target);
       const data = Object.fromEntries(formData.entries());
 
-      const { error } = await supabase.from('registrations').insert([data]);
+      const { error } = await supabase.from('Members').insert([data]);
 
       if(error){
         alert('Error: ' + error.message);
