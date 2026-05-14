@@ -36,33 +36,39 @@ const transaction_id = new URLSearchParams(window.location.search).get('transact
 
 async function verifyPayment(){
   if(!transaction_id){
-    showFailed('No transaction ID found');
+    showFailed('No transaction ID in URL');
     return;
   }
 
-  const res = await fetch('https://fveuxzijvutieavzdfvg.supabase.co/functions/v1/verify-flutterwave', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ transaction_id })
-  });
+  try {
+    const res = await fetch('https://fveuxzijvutieavzdfvg.supabase.co/functions/v1/verify-flutterwave', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ transaction_id })
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  if(data.status === 'success' && data.data.status === 'successful'){
-    await supabase.from('Members')
-     .update({ payment_status: 'paid' })
-     .eq('email', data.data.customer.email);
+    if(data.status === 'success' && data.data.status === 'successful'){
+      await supabase.from('Members')
+       .update({ payment_status: 'paid' })
+       .eq('email', data.data.customer.email);
 
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('success').style.display = 'block';
-  } else {
-    showFailed(data.message || 'Payment not successful');
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+    } else {
+      showFailed(data.message || 'Payment not successful');
+    }
+  } catch (err) {
+    showFailed('Error: ' + err.message + '. Check if function is deployed and CORS is set.');
   }
 }
 
 function showFailed(msg){
   document.getElementById('loading').style.display = 'none';
   document.getElementById('failed').style.display = 'block';
+  document.getElementById('failMsg').style.color = 'red';
+  document.getElementById('failMsg').style.fontSize = '0.9rem';
   document.getElementById('failMsg').textContent = msg;
 }
 
