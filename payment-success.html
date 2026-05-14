@@ -46,11 +46,14 @@ async function verifyPayment(){
 
   try {
     const res = await fetch('https://fveuxzijvutieavzdfvg.supabase.co/functions/v1/verify-flutterwave', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ transaction_id }),
-      signal: controller.signal
-    });
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${supabaseKey}`,
+    'apikey': supabaseKey
+  },
+  body: JSON.stringify({ transaction_id })
+});
 
     clearTimeout(timeout);
     
