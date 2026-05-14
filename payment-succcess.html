@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Status - CEM Hub</title>
+<style>
+  body{font-family:Inter,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;background:#f7f9fc;margin:0;}
+  .box{background:white;padding:3rem;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.1);text-align:center;max-width:400px;}
+  .spinner{border:3px solid #eee;border-top:3px solid #c9a646;border-radius:50%;width:40px;height:40px;animation:spin 1s linear infinite;margin:1rem auto;}
+  @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+  <div class="box">
+    <div id="loading">
+      <div class="spinner"></div>
+      <h2>Verifying Payment...</h2>
+    </div>
+    <div id="success" style="display:none;">
+      <h2>Payment Successful! 🎉</h2>
+      <p>Welcome to CEM Hub. Your registration is confirmed.</p>
+    </div>
+    <div id="failed" style="display:none;">
+      <h2>Payment Failed</h2>
+      <p id="failMsg">Something went wrong.</p>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseUrl = 'https://fveuxzijvutieavzdfvg.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZXV4emlqdnV0aWVhdnpkZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0MzYyNjAsImV4cCI6MjA5NDAxMjI2MH0.Z5K9D0rv2m6AjLqzIIUOXslFqEp69b8143maIu6Y9qU';
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+const transaction_id = new URLSearchParams(window.location.search).get('transaction_id');
+
+async function verifyPayment(){
+  if(!transaction_id){
+    showFailed('No transaction ID found');
+    return;
+  }
+
+  const res = await fetch('https://fveuxzijvutieavzdfvg.supabase.co/functions/v1/verify-flutterwave', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ transaction_id })
+  });
+
+  const data = await res.json();
+
+  if(data.status === 'success' && data.data.status === 'successful'){
+    await supabase.from('Members')
+     .update({ payment_status: 'paid' })
+     .eq('email', data.data.customer.email);
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('success').style.display = 'block';
+  } else {
+    showFailed(data.message || 'Payment not successful');
+  }
+}
+
+function showFailed(msg){
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('failed').style.display = 'block';
+  document.getElementById('failMsg').textContent = msg;
+}
+
+verifyPayment();
+</script>
+</body>
+  </html>
