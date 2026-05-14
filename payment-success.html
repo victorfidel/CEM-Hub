@@ -40,14 +40,30 @@ async function verifyPayment(){
     return;
   }
 
+  // Fail after 10 seconds so it doesn't spin forever
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+
   try {
     const res = await fetch('https://fveuxzijvutieavzdfvg.supabase.co/functions/v1/verify-flutterwave', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ transaction_id })
+      body: JSON.stringify({ transaction_id }),
+      signal: controller.signal
     });
 
-    const data = await res.json();
+    clearTimeout(timeout);
+    
+    const text = await res.text(); // get raw response
+    console.log('Raw response:', text);
+    
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      showFailed('Server returned invalid response: ' + text);
+      return;
+    }
 
     if(data.status === 'success' && data.data.status === 'successful'){
       await supabase.from('Members')
@@ -60,7 +76,8 @@ async function verifyPayment(){
       showFailed(data.message || 'Payment not successful');
     }
   } catch (err) {
-    showFailed('Error: ' + err.message + '. Check if function is deployed and CORS is set.');
+    clearTimeout(timeout);
+    showFailed('Request failed: ' + err.name + ' - ' + err.message);
   }
 }
 
@@ -68,7 +85,7 @@ function showFailed(msg){
   document.getElementById('loading').style.display = 'none';
   document.getElementById('failed').style.display = 'block';
   document.getElementById('failMsg').style.color = 'red';
-  document.getElementById('failMsg').style.fontSize = '0.9rem';
+  document.getElementById('failMsg').style.fontSize = '0.85rem';
   document.getElementById('failMsg').textContent = msg;
 }
 
