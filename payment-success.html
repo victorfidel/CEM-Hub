@@ -30,7 +30,6 @@
 <script>
 const supabaseUrl = 'https://fveuxzijvutieavzdfvg.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZXV4emlqdnV0aWVhdnpkZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0MzYyNjAsImV4cCI6MjA5NDAxMjI2MH0.Z5K9D0rv2m6AjLqzIIUOXslFqEp69b8143maIu6Y9qU';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 const transaction_id = new URLSearchParams(window.location.search).get('transaction_id');
 
@@ -40,38 +39,37 @@ async function verifyPayment(){
     return;
   }
 
-  // Fail after 10 seconds so it doesn't spin forever
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10000);
-
   try {
     const res = await fetch('https://fveuxzijvutieavzdfvg.supabase.co/functions/v1/verify-flutterwave', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${supabaseKey}`,
-    'apikey': supabaseKey
-  },
-  body: JSON.stringify({ transaction_id })
-});
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + supabaseKey,
+        'apikey': supabaseKey
+      },
+      body: JSON.stringify({ transaction_id })
+    });
 
-    clearTimeout(timeout);
+    const text = await res.text();
     
-    const text = await res.text(); // get raw response
-    console.log('Raw response:', text);
-    
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch {
-      showFailed('Server returned invalid response: ' + text);
+    if(!res.ok){
+      showFailed('HTTP ' + res.status + ': ' + text);
       return;
     }
 
+    const data = JSON.parse(text);
+
     if(data.status === 'success' && data.data.status === 'successful'){
-      await supabase.from('Members')
-       .update({ payment_status: 'paid' })
-       .eq('email', data.data.customer.email);
+      await fetch(supabaseUrl + '/rest/v1/Members', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + supabaseKey,
+          'apikey': supabaseKey,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ payment_status: 'paid' })
+      });
 
       document.getElementById('loading').style.display = 'none';
       document.getElementById('success').style.display = 'block';
@@ -79,8 +77,7 @@ async function verifyPayment(){
       showFailed(data.message || 'Payment not successful');
     }
   } catch (err) {
-    clearTimeout(timeout);
-    showFailed('Request failed: ' + err.name + ' - ' + err.message);
+    showFailed('Fetch error: ' + err.message);
   }
 }
 
