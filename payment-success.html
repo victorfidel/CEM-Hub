@@ -61,16 +61,19 @@ async function verifyPayment(){
     const data = JSON.parse(text);
 
     if(data.status === 'success' && data.data.status === 'successful'){
-      await fetch(supabaseUrl + '/rest/v1/Members', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + supabaseKey,
-          'apikey': supabaseKey,
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({ payment_status: 'paid' })
-      });
+      await fetch(`${supabaseUrl}/rest/v1/Members?flutterwave_tx_ref=eq.${tx_ref}`, {
+  method: 'PATCH',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + supabaseKey,
+    'apikey': supabaseKey,
+    'Prefer': 'return=minimal'
+  },
+  body: JSON.stringify({ 
+    payment_status: 'paid',
+    amount_paid: data.data.amount 
+  })
+});
 
       document.getElementById('loading').style.display = 'none';
       document.getElementById('success').style.display = 'block';
