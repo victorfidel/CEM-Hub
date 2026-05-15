@@ -341,14 +341,7 @@ if(form){
     const data = Object.fromEntries(formData.entries());
 
     try {
-      // Save member as pending
-      const { error } = await supabase
-      .from('Members')
-      .upsert([{...data, payment_status: 'pending' }], { onConflict: 'email' });
-
-      if(error) throw error;
-
-      // Call Edge Function to get payment link
+      // 1. Call Edge Function FIRST to get tx_ref and payment link
       const response = await fetch('https://fveuxzijvutieavzdfvg.supabase.co/functions/v1/create-flutterwave-payment', {
         method: 'POST',
         headers: {
@@ -358,17 +351,31 @@ if(form){
         body: JSON.stringify({
           email: data.email,
           name: data.full_name,
-          amount: 2000 // Change this to your fee
+          amount: 2000
         })
       });
 
       const result = await response.json();
 
-      if(result.status === 'success' && result.data.link){
-        window.location.href = result.data.link;
-      } else {
+      if(result.status !== 'success' || !result.data.link){
         throw new Error(result.message || 'Payment link failed');
       }
+
+      const tx_ref = result.data.tx_ref; // Make sure your Edge function returns this
+
+      // 2. Save member with the real tx_ref
+      const { error } = await supabase
+      .from('Members')
+      .upsert([{
+        ...data, 
+        payment_status: 'pending',
+        flutterwave_tx_ref: tx_ref
+      }], { onConflict: 'email' });
+
+      if(error) throw error;
+
+      // 3. Redirect to payment
+      window.location.href = result.data.link;
 
     } catch (err) {
       alert('Error: ' + err.message);
