@@ -33,11 +33,12 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 const urlParams = new URLSearchParams(window.location.search);
 const tx_ref = urlParams.get('tx_ref');
+const transaction_id = urlParams.get('transaction_id');
 
 async function verifyPayment(){
-  if(!tx_ref){
-    showFailed('No transaction ID in URL');
-    return;
+  if(!transaction_id){
+  showFailed('No transaction ID in URL');
+  return;
   }
 
   try {
@@ -48,7 +49,7 @@ async function verifyPayment(){
         'Authorization': 'Bearer ' + supabaseKey,
         'apikey': supabaseKey
       },
-      body: JSON.stringify({ transaction_id: tx_ref })
+      body: JSON.stringify({ transaction_id })
     });
 
     const text = await res.text();
