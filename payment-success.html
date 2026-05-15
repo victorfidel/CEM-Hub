@@ -31,7 +31,8 @@
 const supabaseUrl = 'https://fveuxzijvutieavzdfvg.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZXV4emlqdnV0aWVhdnpkZnZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0MzYyNjAsImV4cCI6MjA5NDAxMjI2MH0.Z5K9D0rv2m6AjLqzIIUOXslFqEp69b8143maIu6Y9qU';
 
-const transaction_id = new URLSearchParams(window.location.search).get('transaction_id');
+const urlParams = new URLSearchParams(window.location.search);
+const tx_ref = urlParams.get('tx_ref');
 
 async function verifyPayment(){
   if(!transaction_id){
