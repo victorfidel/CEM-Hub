@@ -62,13 +62,13 @@ async function verifyPayment(){
     const data = JSON.parse(text);
 
     if(data.status === 'success' && data.data.status === 'successful'){
-      await fetch(`${supabaseUrl}/rest/v1/Members?flutterwave_tx_ref=eq.${tx_ref}`, {
+      const updateRes = await fetch(`${supabaseUrl}/rest/v1/Members?flutterwave_tx_ref=eq.${tx_ref}`, {
   method: 'PATCH',
   headers: {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ' + supabaseKey,
     'apikey': supabaseKey,
-    'Prefer': 'return=minimal'
+    'Prefer': 'return=representation'
   },
   body: JSON.stringify({ 
     payment_status: 'paid',
@@ -76,8 +76,12 @@ async function verifyPayment(){
   })
 });
 
-      document.getElementById('loading').style.display = 'none';
-      document.getElementById('success').style.display = 'block';
+const updateResult = await updateRes.text();
+
+// Show result on the page
+document.getElementById('loading').style.display = 'none';
+document.getElementById('failed').style.display = 'block';
+document.getElementById('failMsg').innerText = `Status: ${updateRes.status}\nResponse: ${updateResult}`;
     } else {
       showFailed(data.message || 'Payment not successful');
     }
