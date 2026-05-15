@@ -35,7 +35,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const tx_ref = urlParams.get('tx_ref');
 
 async function verifyPayment(){
-  if(!transaction_id){
+  if(!tx_ref){
     showFailed('No transaction ID in URL');
     return;
   }
@@ -48,7 +48,7 @@ async function verifyPayment(){
         'Authorization': 'Bearer ' + supabaseKey,
         'apikey': supabaseKey
       },
-      body: JSON.stringify({ transaction_id })
+      body: JSON.stringify({ transaction_id: tx_ref })
     });
 
     const text = await res.text();
