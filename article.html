@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Article - CEM Hub</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/style.css">
+</head>
+<body>
+    <main>
+        <div id="article">Loading...</div>
+
+        <section id="comments-section" class="hidden">
+            <h3>Comments</h3>
+            <div id="comments">Loading comments...</div>
+            
+            <div id="commentForm" class="hidden">
+                <h4>Add a comment</h4>
+                <textarea id="commentText" placeholder="Write your comment..."></textarea>
+                <button id="postCommentBtn">Post Comment</button>
+                <div id="commentMsg"></div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module">
+    import { supabase } from './js/supabase.js'
+    import { initLayout } from './js/layout.js'
+
+    const user = await initLayout()
+    const articleDiv = document.getElementById('article')
+    const commentsSection = document.getElementById('comments-section')
+    const commentsDiv = document.getElementById('comments')
+    const commentForm = document.getElementById('commentForm')
+
+    const urlParams = new URLSearchParams(window.location.search)
+    const articleId = urlParams.get('id')
+
+    if (!articleId) {
+        articleDiv.innerHTML = '<p>Article not found</p>'
+    } else {
+        await loadArticle()
+        await loadComments()
+        
+        if (user) {
+            commentForm.classList.remove('hidden')
+        }
+    }
+
+    async function loadArticle() {
+        const { data: article, error } = await supabase
+      .from('articles')
+      .select('*')
+      .eq('id', articleId)
+      .single()
+
+        if (error ||!article) {
+            articleDiv.innerHTML = '<p>Error loading article</p>'
+            return
+        }
+
+        // Fetch author profile for avatar + username
+        const { data: authorProfile } = await supabase
+      .from('profiles')
+      .select('username, avatar_url')
+      .eq('id', article.author_id)
+      .single()
+
+        const { data: likes } = await supabase
+      .from('likes')
+      .select('user_id')
+      .eq('article_id', articleId)
+
+        const { data: comments } = await supabase
+      .from('comments')
+      .select('id')
+      .eq('article_id', articleId)
+
+        const likeCount = likes?.length || 0
+        const commentCount = comments?.length || 0
+        const isLiked = user && likes?.some(l => l.user_id === user.id)
+        const currentUrl = window.location.href
+        
+        const author_name = authorProfile?.username || article.author_name || article.author_email || 'Anonymous'
+        const author_avatar = authorProfile?.avatar_url
+
+        articleDiv.innerHTML = `
+            ${article.cover_image_url? `
+                <div class="article-hero">
+                    <img src="${article.cover_image_url}" alt="${article.title}">
+                </div>
+            ` : ''}
+            
+            <article class="article-full">
+                ${article.category? `<span class="category-badge">${article.category}</span>` : ''}
+                
+                <h1>${article.title}</h1>
+                
+                ${article.excerpt? `<p class="article-excerpt">${article.excerpt}</p>` : ''}
+                
+                <div class="meta">
+                    <a href="profile.html?user=${article.author_id}" class="author-link">
+                        ${author_avatar? `
+                            <img src="${author_avatar}" alt="${author_name}" class="author-avatar-small">
+                        ` : '<span class="author-avatar-placeholder">👤</span>'}
+                        <span>By ${author_name}</span>
+                    </a> • 
+                    Posted ${new Date(article.created_at).toLocaleDateString()}
+                </div>
+
+                <div class="article-content-full">
+                    ${article.content}
+                </div>
+
+                <div class="article-actions">
+                    <div class="actions-row">
+                        <button class="action-btn likeBtn ${isLiked? 'liked' : ''}" data-id="${article.id}">
+                            ${isLiked? '❤️' : '🤍'} ${likeCount}
+                        </button>
+                        <a class="action-btn" href="#comments-section">💬 ${commentCount}</a>
+                        ${user && user.id === article.author_id? `
+                            <a class="action-btn" href="post-article.html?edit=${article.id}">
+                                ✏️ Edit
+                            </a>
+                            <button class="action-btn delete-btn deleteBtn" data-id="${article.id}">
+                                🗑️ Delete
+                            </button>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="share-row">
+                        <a class="share-btn" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}">Facebook</a>
+                        <a class="share-btn" target="_blank" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(article.title)}">X</a>
+                        <a class="share-btn" target="_blank" href="https://wa.me/?text=${encodeURIComponent(article.title + ' ' + currentUrl)}">WhatsApp</a>
+                        <button class="share-btn" id="copyLinkBtn">Copy Link</button>
+                    </div>
+                </div>
+            </article>
+        `
+
+        commentsSection.classList.remove('hidden')
+
+        document.querySelector('.likeBtn')?.addEventListener('click', async (e) => {
+            if (!user) {
+                alert('Log in to like articles')
+                return
+            }
+
+            const btn = e.target.closest('button')
+            const isLiked = btn.classList.contains('liked')
+            
+            const { error } = isLiked 
+          ? await supabase.from('likes').delete().eq('user_id', user.id).eq('article_id', articleId)
+              : await supabase.from('likes').insert({ user_id: user.id, article_id: articleId })
+            
+            if (error) alert(`Like error: ${error.message}`)
+            else await loadArticle()
+        })
+
+        document.querySelector('.deleteBtn')?.addEventListener('click', async () => {
+            if (!confirm('Delete this article?')) return
+            const { error } = await supabase.from('articles').delete().eq('id', articleId)
+            if (error) alert(`Error: ${error.message}`)
+            else window.location.href = 'blog.html'
+        })
+
+        document.getElementById('copyLinkBtn')?.addEventListener('click', () => {
+            navigator.clipboard.writeText(currentUrl)
+            const btn = document.getElementById('copyLinkBtn')
+            btn.textContent = 'Copied!'
+            setTimeout(() => btn.textContent = 'Copy Link', 2000)
+        })
+    }
+
+    async function loadComments() {
+        const { data: comments, error } = await supabase
+      .from('comments')
+      .select('*')
+      .eq('article_id', articleId)
+      .order('created_at', { ascending: true })
+
+        if (error) {
+            commentsDiv.innerHTML = '<p>Error loading comments</p>'
+            return
+        }
+
+        if (!comments || comments.length === 0) {
+            commentsDiv.innerHTML = '<p>No comments yet. Be the first!</p>'
+            return
+        }
+
+        // Get comment author avatars - using user_id not author_id
+        const authorIds = [...new Set(comments.map(c => c.user_id).filter(Boolean))]
+        const { data: profiles } = await supabase
+      .from('profiles')
+      .select('id, username, avatar_url')
+      .in('id', authorIds)
+
+        commentsDiv.innerHTML = comments.map(comment => {
+            const authorProfile = profiles?.find(p => p.id === comment.user_id)
+            const author_name = authorProfile?.username || comment.author_name || comment.author_email || 'Anonymous'
+            const author_avatar = authorProfile?.avatar_url
+            
+            return `
+            <div class="comment">
+                <div class="comment-meta">
+                    <a href="profile.html?user=${comment.user_id}" class="author-link">
+                        ${author_avatar? `
+                            <img src="${author_avatar}" alt="${author_name}" class="author-avatar-small">
+                        ` : '<span class="author-avatar-placeholder">👤</span>'}
+                        <strong>${author_name}</strong>
+                    </a> • 
+                    ${new Date(comment.created_at).toLocaleDateString()}
+                </div>
+                <p>${comment.content}</p>
+            </div>
+        `}).join('')
+    }
+
+    document.getElementById('postCommentBtn')?.addEventListener('click', async () => {
+        const content = document.getElementById('commentText').value
+        const msg = document.getElementById('commentMsg')
+
+        if (!content) {
+            msg.textContent = 'Comment cannot be empty'
+            return
+        }
+
+        const { error } = await supabase.from('comments').insert({
+            article_id: articleId,
+            content,
+            user_id: user.id,
+            author_email: user.email,
+            author_name: user.user_metadata?.full_name || user.email.split('@')[0]
+        })
+
+        if (error) {
+            msg.textContent = `Error: ${error.message}`
+        } else {
+            msg.textContent = 'Posted!'
+            document.getElementById('commentText').value = ''
+            await loadComments()
+            await loadArticle()
+            setTimeout(() => msg.textContent = '', 2000)
+        }
+    })
+    </script>
+</body>
+  </html>
+  
