@@ -915,6 +915,13 @@ textarea { height: 120px; resize: vertical; }
     color: var(--accent);
     text-decoration: underline;
 }
+.article-image {
+  width: 100%; /* fill the container width */
+  height: 300px; /* set your fixed height boundary */
+  object-fit: contain;
+  object-position: center; /* center the image in the box */
+  background: #f5f5f5; /* optional: color for the empty space */
+}
 
 /* Actions */
 .actions { 
